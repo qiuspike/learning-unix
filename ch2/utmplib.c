@@ -30,7 +30,7 @@ int utmp_open(char * filename) {
 }
 
 struct utmp * utmp_next() {
-    struct utmp * recp;
+    struct utmp * recp = NULL;
     if (fd_utmp == -1) {
         return NULLUT;
     }
@@ -38,8 +38,10 @@ struct utmp * utmp_next() {
         return NULLUT;
     }
 
-    recp = (struct utmp *) &utmpbuf[cur_rec * UTSIZE];
-    cur_rec++;
+    while (recp == NULL || recp->ut_type != USER_PROCESS) {
+        recp = (struct utmp *) &utmpbuf[cur_rec * UTSIZE];
+        cur_rec++;
+    }
     return recp;
 }
 
