@@ -3,6 +3,7 @@
  * features of version 0.2: reads from /dev/tty for commands
  */
 #include <stdio.h>
+#include <stdlib.h>
 #define PAGELEN 24
 #define LINELEN 512
 
